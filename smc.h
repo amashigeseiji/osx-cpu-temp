@@ -38,9 +38,6 @@
 #define DATATYPE_UINT32       "ui32"
 #define DATATYPE_SP78         "sp78"
 
-// key values
-#define SMC_KEY_CPU_TEMP      "TC0P"
-
 
 typedef struct {
     char                  major;

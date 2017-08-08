@@ -183,14 +183,20 @@ int main(int argc, char *argv[])
     }
 
     SMCOpen();
-    double temperature = SMCGetTemperature(SMC_KEY_CPU_TEMP);
-    SMCClose();
-
-    if (scale == 'F') {
-      temperature = convertToFahrenheit(temperature);
+    int i;
+    char *p;
+    double temperature;
+    for (i = 1; i < argc; i++) {
+      p = argv[i];
+      if (strcmp(p, "-C") == 0 || strcmp(p, "-F") == 0) {
+        continue;
+      }
+      temperature = SMCGetTemperature(p);
+      if (scale == 'F') {
+        temperature = convertToFahrenheit(temperature);
+      }
+      printf("%s %0.1f°%c\n", p, temperature, scale);
     }
-
-    printf("%0.1f°%c\n", temperature, scale);
-
+    SMCClose();
     return 0;
 }
